@@ -1,20 +1,37 @@
-require('dotenv').config({path: 'variables.env'});
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: 'variables.env' });
 const createServer = require('./createServer');
 const db = require('./db');
 
 const server = createServer();
 
-// TODO use express middleware to handle cookies (JWT)
-// TODO use express midlleware to populate current user
+// use express middleware to handle cookies (JWT)
+server.express.use(cookieParser());
 
-server.start({
-	cors: {
-		credentials: true,
-		origin: process.env.FRONTEND_URL,
+// decode the JWT so we can get the userID on each reques
+server.express.use((req, res, next) => {
+  const { token } = req.cookies;
 
-	}
-}, deets => {
-	console.log('====================================');
-	console.log(`Server is now running on http://localhose:${deets.port}`);
-	console.log('====================================');
-})
+  if (token) {
+    const { userId } = jwt.verify(token, process.env.APP_SECRET);
+    // put the userId onto the req for future req to access
+    res.userId = userId;
+  }
+
+  next();
+});
+
+server.start(
+  {
+    cors: {
+      credentials: true,
+      origin: process.env.FRONTEND_URL,
+    },
+  },
+  deets => {
+    console.log('====================================');
+    console.log(`Server is now running on http://localhost:${deets.port}`);
+    console.log('====================================');
+  }
+);
