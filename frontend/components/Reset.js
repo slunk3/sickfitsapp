@@ -56,7 +56,7 @@ class ResetPage extends Component {
           },
         ]}
       >
-        {(reset, { error, loading, called }) => (
+        {(reset, { error, loading }) => (
           <Form
             method="post"
             onSubmit={async e => {

@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import PaginationStyles from './styles/PaginationStyles';
 import { perPage } from '../config';
 
@@ -61,5 +62,9 @@ const Pagination = props => (
     }}
   </Query>
 );
+
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+};
 
 export default Pagination;

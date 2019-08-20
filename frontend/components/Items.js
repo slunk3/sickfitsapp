@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Item from './Item';
 import Pagination from './Pagination';
 import { perPage } from '../config';
@@ -33,13 +34,14 @@ const ItemsList = styled.div`
 
 class Items extends Component {
   render() {
+    const { page } = this.props;
     return (
       <Center>
-        <Pagination page={this.props.page} />
+        <Pagination page={page} />
         <Query
           query={ALL_ITEMS_QUERY}
           variables={{
-            skip: this.props.page * perPage - perPage,
+            skip: page * perPage - perPage,
             // first: perPage,
           }}
         >
@@ -55,11 +57,15 @@ class Items extends Component {
             );
           }}
         </Query>
-        <Pagination page={this.props.page} />
+        <Pagination page={page} />
       </Center>
     );
   }
 }
+
+Items.propTypes = {
+  page: PropTypes.number.isRequired,
+};
 
 export default Items;
 export { ALL_ITEMS_QUERY };

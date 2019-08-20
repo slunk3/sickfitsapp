@@ -1,3 +1,4 @@
+import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -25,9 +26,9 @@ const ALL_USERS_QUERY = gql`
   }
 `;
 
-const Permissions = props => (
+const Permissions = () => (
   <Query query={ALL_USERS_QUERY}>
-    {({ data, loading, error }) => (
+    {({ data, error }) => (
       <div>
         <Error error={error} />
         <div>

@@ -15,7 +15,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint",
-      "commit-msg": "echo 'Pre-commit lint checks...' && exit 0"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "author": "",

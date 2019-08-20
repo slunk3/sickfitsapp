@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 import { ALL_ITEMS_QUERY } from './Items';
 
@@ -50,5 +51,10 @@ class DeleteItem extends Component {
     );
   }
 }
+
+DeleteItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired,
+};
 
 export default DeleteItem;

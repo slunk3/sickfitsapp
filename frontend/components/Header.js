@@ -1,37 +1,37 @@
-import Nav from '../components/Nav';
 import Link from 'next/link';
 import styled from 'styled-components';
 import Router from 'next/router';
 import NProgress from 'nprogress';
+import Nav from './Nav';
 
 Router.onRouteChangeStart = () => {
-    NProgress.start();
-}
+  NProgress.start();
+};
 Router.onRouteChangeComplete = () => {
-    NProgress.done();
-}
+  NProgress.done();
+};
 Router.onRouteChangeError = () => {
-    NProgress.done();
-}
+  NProgress.done();
+};
 
 const Logo = styled.h1`
-    font-style: 4rem;
-    margin-left: 2rem;
-    position: relative;
-    z-index: 2;
-    transform: skew(-7deg);
-    
-    a {
-        padding: 0.5rem 1rem;
-        background: ${props => props.theme.red};
-        color: white;
-        text-transform: uppercase;
-        text-decoration: none;
-    }
-    @media (max-width: 1300px) {
-        margin: 0;
-        text-align: center;
-    }
+  font-style: 4rem;
+  margin-left: 2rem;
+  position: relative;
+  z-index: 2;
+  transform: skew(-7deg);
+
+  a {
+    padding: 0.5rem 1rem;
+    background: ${props => props.theme.red};
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  @media (max-width: 1300px) {
+    margin: 0;
+    text-align: center;
+  }
 `;
 
 const StyledHeader = styled.header`
@@ -54,20 +54,20 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => (
-    <StyledHeader>
-        <div className="bar">
-            <Logo>
-                <Link href="/">
-                    <a>Sick Fits</a>
-                </Link>
-            </Logo>
-            <Nav />
-        </div>
-        <div className="sub-bar">
-            <p>Search</p>
-        </div>
-        <div>Cart</div>
-    </StyledHeader>
-)
+  <StyledHeader>
+    <div className="bar">
+      <Logo>
+        <Link href="/">
+          <a>Sick Fits</a>
+        </Link>
+      </Logo>
+      <Nav />
+    </div>
+    <div className="sub-bar">
+      <p>Search</p>
+    </div>
+    <div>Cart</div>
+  </StyledHeader>
+);
 
 export default Header;

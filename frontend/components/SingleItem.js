@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 import Error from './ErrorMessage';
 
 const SingleItemStyles = styled.div`
@@ -37,12 +38,13 @@ const SINGLE_ITEM_QUERY = gql`
 
 class SingleItem extends Component {
   render() {
+    const { id } = this.props;
     return (
-      <Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
+      <Query query={SINGLE_ITEM_QUERY} variables={{ id }}>
         {({ error, loading, data }) => {
           if (error) return <Error error={error}></Error>;
           if (loading) return <p>Loading ...</p>;
-          if (!data.item) return <p>No item found for {this.props.id}</p>;
+          if (!data.item) return <p>No item found for {id}</p>;
           const { item } = data;
           return (
             <SingleItemStyles>
@@ -61,4 +63,9 @@ class SingleItem extends Component {
     );
   }
 }
+
+SingleItem.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
 export default SingleItem;

@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 
 const CREATE_ITEM_MUTATION = gql`
@@ -32,7 +31,6 @@ class CreatItem extends Component {
     title: '',
     description: '',
     image: '',
-    largeImage: '',
     price: 0,
   };
 
@@ -59,11 +57,12 @@ class CreatItem extends Component {
     console.log(file);
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url,
+      // largeImage: file.eager[0].secure_url,
     });
   };
 
   render() {
+    const { image, title, price, description } = this.state;
     return (
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
@@ -91,13 +90,7 @@ class CreatItem extends Component {
                   required
                   onChange={this.uploadFile}
                 />
-                {this.state.image && (
-                  <img
-                    src={this.state.image}
-                    alt="Upload preview"
-                    width="200"
-                  />
-                )}
+                {image && <img src={image} alt="Upload preview" width="200" />}
               </label>
 
               <label htmlFor="title">
@@ -108,7 +101,7 @@ class CreatItem extends Component {
                   name="title"
                   placeholder="Title"
                   required
-                  value={this.state.title}
+                  value={title}
                   onChange={this.handleChange}
                 />
               </label>
@@ -121,7 +114,7 @@ class CreatItem extends Component {
                   name="price"
                   placeholder="Price"
                   required
-                  value={this.state.price}
+                  value={price}
                   onChange={this.handleChange}
                 />
               </label>
@@ -133,7 +126,7 @@ class CreatItem extends Component {
                   id="description"
                   placeholder="enter a description"
                   required
-                  value={this.state.description}
+                  value={description}
                   onChange={this.handleChange}
                 />
               </label>

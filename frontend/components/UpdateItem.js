@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import Router from 'next/router';
 
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 
 const SINGLE_ITEM_QUERY = gql`
@@ -39,6 +37,8 @@ const UPDATE_ITEM_MUTATION = gql`
   }
 `;
 
+const { id } = this.props;
+
 class UpdateItem extends Component {
   state = {};
 
@@ -50,10 +50,9 @@ class UpdateItem extends Component {
 
   updateItem = async (e, updateItemMutation) => {
     e.preventDefault();
-    console.log('Updating item', this.state);
-    const res = await updateItemMutation({
+    await updateItemMutation({
       variables: {
-        id: this.props.id,
+        id,
         ...this.state,
       },
     });
@@ -62,13 +61,13 @@ class UpdateItem extends Component {
 
   render() {
     return (
-      <Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
+      <Query query={SINGLE_ITEM_QUERY} variables={{ id }}>
         {({ data, loading }) => {
           if (loading) return <p>Loading...</p>;
-          if (!data.item) return <p>No item found for ID {this.props.id}</p>;
+          if (!data.item) return <p>No item found for ID {id}</p>;
           return (
             <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
-              {(updateItem, { loading, error }) => (
+              {(updateItem, { error }) => (
                 <Form onSubmit={e => this.updateItem(e, updateItem)}>
                   <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
