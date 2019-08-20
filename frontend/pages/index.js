@@ -1,9 +1,14 @@
+import PropTypes from 'prop-types';
 import Items from '../components/Items';
 
-const Home = props => (
+const Home = ({ query: { page } }) => (
   <div>
-    <Items page={parseFloat(props.query.page || 1)} />
+    <Items page={parseFloat(page || 1)} />
   </div>
 );
+
+Home.propTypes = {
+  query: PropTypes.object.isRequired,
+};
 
 export default Home;

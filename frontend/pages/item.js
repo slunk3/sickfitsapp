@@ -1,9 +1,14 @@
+import PropTypes from 'prop-types';
 import SingleItem from '../components/SingleItem';
 
-const Item = props => (
+const Item = ({ query: { id } }) => (
   <div>
-    <SingleItem id={props.query.id} />
+    <SingleItem id={id} />
   </div>
 );
+
+Item.propTypes = {
+  query: PropTypes.object.isRequired,
+};
 
 export default Item;

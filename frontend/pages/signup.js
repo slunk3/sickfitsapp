@@ -9,7 +9,7 @@ const Columns = styled.div`
   grid-gap: 20px;
 `;
 
-const SignUpPage = props => (
+const SignUpPage = () => (
   <Columns>
     <SignUp />
     <SignIn />
