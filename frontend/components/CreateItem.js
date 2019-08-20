@@ -54,10 +54,11 @@ class CreatItem extends Component {
       }
     );
     const file = await res.json();
-    console.log(file);
+
     this.setState({
       image: file.secure_url,
-      // largeImage: file.eager[0].secure_url,
+      // eslint-disable-next-line react/no-unused-state
+      largeImage: file.eager[0].secure_url,
     });
   };
 

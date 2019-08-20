@@ -39,7 +39,9 @@ class DeleteItem extends Component {
             type="button"
             onClick={() => {
               if (window.confirm('Are you sure you want to delete this?')) {
-                deleteItem();
+                deleteItem().catch(err => {
+                  alert(err.message);
+                });
               }
             }}
           >
@@ -53,7 +55,7 @@ class DeleteItem extends Component {
 
 DeleteItem.propTypes = {
   id: PropTypes.string.isRequired,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default DeleteItem;
