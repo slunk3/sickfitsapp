@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-
-import { ALL_ITEMS_QUERY } from './Items';
+import { ALL_ITEMS_QUERY } from './Queries';
 
 const DELETE_ITEM_MUTATION = gql`
   mutation DELETE_ITEM_MUTATION($id: ID!) {
@@ -39,7 +38,7 @@ class DeleteItem extends Component {
           <button
             type="button"
             onClick={() => {
-              if (confirm('Are you sure you want to delete this?')) {
+              if (window.confirm('Are you sure you want to delete this?')) {
                 deleteItem();
               }
             }}

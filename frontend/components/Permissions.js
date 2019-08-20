@@ -46,7 +46,7 @@ const Permissions = () => (
             </thead>
             <tbody>
               {data.users.map(user => (
-                <User user={user} key={user.id} />
+                <UserPermissions user={user} key={user.id} />
               ))}
             </tbody>
           </Table>
@@ -56,10 +56,46 @@ const Permissions = () => (
   </Query>
 );
 
-class User extends React.Component {
+class UserPermissions extends React.Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string,
+      id: PropTypes.string,
+      permissions: PropTypes.array,
+    }).isRequired,
+  };
+
+  state = {
+    // eslint-disable-next-line react/destructuring-assignment
+    permissions: this.props.user.permissions,
+  };
+
+  handlePermissionChange = e => {
+    const checkbox = e.target;
+    const { permissions } = this.state;
+
+    // take copy of current permissions
+    let updatedPermissions = [...permissions];
+
+    // figure out if we need to remove or add permission
+    if (checkbox.checked) {
+      updatedPermissions.push(checkbox.value);
+    } else {
+      updatedPermissions = updatedPermissions.filter(
+        permission => permission !== checkbox.value
+      );
+    }
+    console.log(updatedPermissions);
+    this.setState(previousState => ({
+      ...previousState,
+      permissions: updatedPermissions,
+    }));
+  };
+
   render() {
     const { user } = this.props;
-
+    const { permissions } = this.state;
     return (
       <tr>
         <td>{user.name}</td>
@@ -67,7 +103,12 @@ class User extends React.Component {
         {possiblePermissions.map(permission => (
           <td key={`${user.id}-permission-${permission}`}>
             <label htmlFor={`${user.id}-permission-${permission}`}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={permissions.includes(permission)}
+                value={permission}
+                onChange={this.handlePermissionChange}
+              />
             </label>
           </td>
         ))}
@@ -78,9 +119,5 @@ class User extends React.Component {
     );
   }
 }
-
-User.propTypes = {
-  user: PropTypes.object.isRequired,
-};
 
 export default Permissions;

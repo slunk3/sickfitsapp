@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Item from './Item';
 import Pagination from './Pagination';
 import { perPage } from '../config';
-
-const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
-    items (first: $first, skip: $skip, orderBy: createdAt_DESC){
-      id
-      title
-      price
-      description
-      image
-      largeImage
-    }
-  }
-`;
+import { ALL_ITEMS_QUERY } from './Queries';
 
 const Center = styled.div`
   text-align: center;
@@ -68,4 +55,3 @@ Items.propTypes = {
 };
 
 export default Items;
-export { ALL_ITEMS_QUERY };
