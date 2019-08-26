@@ -35,7 +35,7 @@ class AddToCart extends React.Component {
 }
 
 AddToCart.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default AddToCart;
