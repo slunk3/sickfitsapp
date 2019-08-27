@@ -29,6 +29,7 @@ function totalItems(cart) {
 
 class TakeMyMoney extends Component {
   onToken = async (res, createOrder) => {
+    NProgress.start();
     console.log('On token called');
     console.log(res);
     // manualy call the mutatuib once we have the stripe token
@@ -38,6 +39,10 @@ class TakeMyMoney extends Component {
       },
     }).catch(err => {
       alert(err.message);
+    });
+    Router.push({
+      pathname: '/order',
+      query: { id: order.data.createOrder.id },
     });
   };
 
