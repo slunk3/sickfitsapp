@@ -26,7 +26,7 @@ class AddToCart extends React.Component {
       >
         {(addToCart, { error, loading }) => (
           <button type="button" onClick={addToCart} disabled={loading}>
-            Add To Cart +
+            Add{loading && 'ing'} To Cart 🛒
           </button>
         )}
       </Mutation>
@@ -39,3 +39,4 @@ AddToCart.propTypes = {
 };
 
 export default AddToCart;
+export { ADD_TO_CART_MUTATION };

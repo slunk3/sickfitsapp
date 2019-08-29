@@ -49,7 +49,7 @@ class RemoveFromCart extends React.Component {
         optimisticResponse={{
           __typename: 'Mutation',
           removeFromCart: {
-            __typename: 'cartItem',
+            __typename: 'CartItem',
             id,
           },
         }}
@@ -71,3 +71,4 @@ class RemoveFromCart extends React.Component {
 }
 
 export default RemoveFromCart;
+export { REMOVE_FROM_CART_MUTATION };

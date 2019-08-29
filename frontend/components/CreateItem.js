@@ -26,11 +26,12 @@ const CREATE_ITEM_MUTATION = gql`
   }
 `;
 
-class CreatItem extends Component {
+class CreateItem extends Component {
   state = {
     title: '',
     description: '',
     image: '',
+    largeImage: '',
     price: 0,
   };
 
@@ -68,6 +69,7 @@ class CreatItem extends Component {
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
           <Form
+            data-test="form"
             onSubmit={async e => {
               e.preventDefault();
               // call mutation
@@ -140,5 +142,5 @@ class CreatItem extends Component {
   }
 }
 
-export default CreatItem;
+export default CreateItem;
 export { CREATE_ITEM_MUTATION };
